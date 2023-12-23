@@ -25,13 +25,13 @@ export const Feedback = () => {
           <li key={msg.id}>
             {/* mapping through sorted chats */}
             <p> {msg.name}</p>
-            <p>{[1, 2, 3, 4, 5].map((item) => {
+            <p>{msg.rating !== null ? [1, 2, 3, 4, 5].map((item) => {
             if (item <= msg.rating) {
               return <FaStar key={item} />;
             }
               else if (msg.rating !== null) return <FaRegStar key={item} />;
-              else return "not rated";
-          })}</p>
+              else return null;
+          }): "not rated"}</p>
             <p>{msg.feedback}</p>
           </li>
         ))}
