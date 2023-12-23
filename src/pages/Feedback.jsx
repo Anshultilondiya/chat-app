@@ -29,7 +29,8 @@ export const Feedback = () => {
             if (item <= msg.rating) {
               return <FaStar key={item} />;
             }
-            return <FaRegStar key={item} />;
+              else if (msg.rating !== null) return <FaRegStar key={item} />;
+              else return "not rated";
           })}</p>
             <p>{msg.feedback}</p>
           </li>
