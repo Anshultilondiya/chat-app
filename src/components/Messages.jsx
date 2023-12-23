@@ -7,7 +7,7 @@ import {
   AiOutlineDislike,
   AiOutlineLike,
 } from "react-icons/ai";
-
+// Messeges component, responsible for displaying messages
 export const Messages = () => {
   const { activeChat, getBotResponse, botIsTyping, likeDislikeMessage } =
     useContext(ChatContext);

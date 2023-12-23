@@ -7,12 +7,16 @@ const ChatContext = createContext();
 
 // Step 2: Create a provider component
 const ContextProvider = ({ children }) => {
+  // msgList is the main state, which is storing the data of all chats
   const [msgList, setMsgList] = useState([]);
-
+  // activeChat is the state of the current chat
   const [activeChat, setActiveChat] = useState(null);
+  // activeChatId is the id of the current chat
   const [activeChatId, setActiveChatId] = useState(null);
+  // botIsTyping is the state of the bot, just to show that the bot is typing
   const [botIsTyping, setBotIsTyping] = useState(false);
 
+  // function to create a new chat
   const createNewChat = (name) => {
     const newChat = {
       id: nanoid(),
@@ -32,6 +36,7 @@ const ContextProvider = ({ children }) => {
     setMsgList(msgList.filter((chat) => chat.id !== id));
   };
 
+  // add a message
   const addMessage = (message, role = "user") => {
     const msgObj = {
       id: nanoid(),
@@ -39,6 +44,7 @@ const ContextProvider = ({ children }) => {
       role,
       isLiked: 0, // 1 - dislike, 2 - like, 0 - neutral
     };
+    // add the message to the chat
     setMsgList(
       msgList.map((chat) => {
         console.log(chat.id === activeChatId);
@@ -52,7 +58,7 @@ const ContextProvider = ({ children }) => {
       })
     );
   };
-
+  // like or dislike a message
   const likeDislikeMessage = (id, status) => {
     setMsgList(
       msgList.map((chat) => {
@@ -75,6 +81,7 @@ const ContextProvider = ({ children }) => {
     );
   };
 
+  // get bot response
   const getBotResponse = async () => {
     setBotIsTyping(true);
     getResponse()
@@ -86,6 +93,7 @@ const ContextProvider = ({ children }) => {
       });
   };
 
+  // add feedback
   const addFeedback = (value, rating) => {
     setMsgList(
       msgList.map((chat) => {
@@ -102,6 +110,7 @@ const ContextProvider = ({ children }) => {
     );
   };
 
+  // whenever the chat id changes, set the active chat to the corresponding chat
   useEffect(() => {
     if (activeChatId) {
       setActiveChat(msgList.find((chat) => chat.id === activeChatId));
@@ -109,7 +118,7 @@ const ContextProvider = ({ children }) => {
   }, [activeChatId, msgList]);
 
   console.log({ activeChat });
-
+  // passing the values to the context
   const contextValue = {
     msgList,
     setMsgList,

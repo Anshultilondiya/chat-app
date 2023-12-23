@@ -9,12 +9,14 @@ import { yellow } from "@mui/material/colors";
 export default function BasicModal(props) {
   const [value, setValue] = useState("");
   const [rating, setRating] = useState(0);
-  const addChat = () => {
+  // adding the feedback function
+  const addFeedback = () => {
     props.addFeedback(value, rating);
     setValue("");
     props.handleClose();
   };
   return (
+    // modal for giving feedback, taken from MUI library
     <Modal
       aria-labelledby="modal-title"
       aria-describedby="modal-desc"
@@ -42,20 +44,37 @@ export default function BasicModal(props) {
           }}
         >
           <p>Give Feedback</p>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}> 
-             {[1, 2, 3, 4, 5].map((item) => {
-            if (item <= rating) {
-              return <FaStar style={{ color: 'var(--yellow-400)', cursor: 'pointer'}} key={item} onClick={() => setRating(item)} />;
-            }
-            return <FaRegStar style={{ color: 'var(--yellow-400)', cursor: 'pointer'}} key={item} onClick={() => setRating(item)} />;
-          })}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {[1, 2, 3, 4, 5].map((item) => {
+              if (item <= rating) {
+                return (
+                  <FaStar
+                    style={{ color: "var(--yellow-400)", cursor: "pointer" }}
+                    key={item}
+                    onClick={() => setRating(item)}
+                  />
+                );
+              }
+              return (
+                <FaRegStar
+                  style={{ color: "var(--yellow-400)", cursor: "pointer" }}
+                  key={item}
+                  onClick={() => setRating(item)}
+                />
+              );
+            })}
           </Box>
-         
+          {/* text area for feedback */}
           <Input
             placeholder="Please provide feedback here"
             onChange={(e) => setValue(e.target.value)}
           />
-          <Button sx={{ mt: 2 }} onClick={addChat} style={{ backgroundColor: 'var(--violet-600)' }}>
+          {/* button for submitting feedback */}
+          <Button
+            sx={{ mt: 2 }}
+            onClick={addFeedback}
+            style={{ backgroundColor: "var(--violet-600)" }}
+          >
             Submit Feedback
           </Button>
         </Box>
@@ -92,18 +111,23 @@ export const ChatScreen = () => {
       <Messages />
       {activeChat?.isConversationEnded ? (
         <Box className="end-conversation-card">
-          <p className="feedback"> <span>Feedback:</span>
-            {activeChat.feedback}</p>
+          <p className="feedback">
+            {" "}
+            <span>Feedback: </span>
+            {activeChat.feedback}
+          </p>
           <p className="rating">
-            <span>Rating:</span>
-           {activeChat.rating !== null ? [1, 2, 3, 4, 5].map((item) => {
-            if (item <= activeChat.rating) {
-              return <FaStar key={item} />;
-            }
-              else if (activeChat.rating !== null) return <FaRegStar key={item} />;
-              else return null;
-           }) : "not rated"}
-            </p>
+            <span>Rating: </span>
+            {activeChat.rating !== null
+              ? [1, 2, 3, 4, 5].map((item) => {
+                  if (item <= activeChat.rating) {
+                    return <FaStar key={item} />;
+                  } else if (activeChat.rating !== null)
+                    return <FaRegStar key={item} />;
+                  else return null;
+                })
+              : "not rated"}
+          </p>
           <h5>Conversation Ended</h5>
         </Box>
       ) : (

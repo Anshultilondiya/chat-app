@@ -16,6 +16,8 @@
       border-radius: 5px;
       width: 100%;
       padding: 10px;
+      word-wrap: break-word;
+      flex-wrap: wrap;
       @include flexCol(flex-start, flex-start);
 
       span {
