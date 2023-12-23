@@ -4,6 +4,7 @@ import { Messages } from "./Messages";
 import { Button, ModalClose, Sheet } from "@mui/joy";
 import { ChatContext } from "../context/chatContext";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { yellow } from "@mui/material/colors";
 
 export default function BasicModal(props) {
   const [value, setValue] = useState("");
@@ -37,20 +38,24 @@ export default function BasicModal(props) {
             flexDirection: "column",
             alignItems: "flex-start",
             margin: "15px 10px",
+            gap: 3,
           }}
         >
           <p>Give Feedback</p>
-          {[1, 2, 3, 4, 5].map((item) => {
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}> 
+             {[1, 2, 3, 4, 5].map((item) => {
             if (item <= rating) {
-              return <FaStar key={item} onClick={() => setRating(item)} />;
+              return <FaStar style={{ color: 'var(--yellow-400)', cursor: 'pointer'}} key={item} onClick={() => setRating(item)} />;
             }
-            return <FaRegStar key={item} onClick={() => setRating(item)} />;
+            return <FaRegStar style={{ color: 'var(--yellow-400)', cursor: 'pointer'}} key={item} onClick={() => setRating(item)} />;
           })}
+          </Box>
+         
           <Input
             placeholder="Please provide feedback here"
             onChange={(e) => setValue(e.target.value)}
           />
-          <Button sx={{ mt: 2 }} onClick={addChat}>
+          <Button sx={{ mt: 2 }} onClick={addChat} style={{ backgroundColor: 'var(--violet-600)' }}>
             Submit Feedback
           </Button>
         </Box>
