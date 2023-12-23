@@ -1,47 +1,50 @@
 .message-component {
+  width: 100%;
+  .heading {
+    @include flexRow(center, space-between, 20px);
+    padding: 0px 10px;
+  }
+
+  .message-list {
+    list-style: none;
     width: 100%;
+    @include flexCol(flex-start, flex-start, 20px);
+    margin-top: 10px;
 
-    .message-list {
-        list-style: none;
-        width: 100%;
-        @include flexCol(flex-start, flex-start, 20px);
-        margin-top: 10px;
+    .message {
+      background-color: var(--gray-100);
+      border-radius: 5px;
+      width: 100%;
+      padding: 10px;
+      @include flexCol(flex-start, flex-start);
 
-        .message {
-            background-color: var(--gray-100);
-            border-radius: 5px;
-            width: 100%;
-            padding: 10px;
-            @include flexCol(flex-start, flex-start);
+      span {
+        @include variableFont(10px, 700);
+        letter-spacing: 1px;
+      }
 
-            span {
-                @include variableFont(10px, 700);
-                letter-spacing: 1px
-            }
+      &.auth-bot {
+        position: relative;
 
-            &.auth-bot {
-                position: relative;
+        .message-status {
+          position: absolute;
+          right: 10px;
+          bottom: 5px;
+          display: none;
 
-                .message-status {
-                    position: absolute;
-                    right: 10px;
-                    bottom: 5px;
-                    display: none;
-
-
-                    svg {
-                        width: 20px;
-                        height: 20px;
-                        margin: 2px 5px;
-                    }
-                }
-
-                &:hover {
-                    .message-status {
-                        display: block;
-                    }
-                }
-            }
+          svg {
+            width: 20px;
+            height: 20px;
+            margin: 2px 5px;
+          }
         }
+
+        &:hover {
+          .message-status {
+            display: block;
+          }
+        }
+      }
     }
+  }
 }

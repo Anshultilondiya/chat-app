@@ -1,24 +1,26 @@
 .chat-screen {
-    flex-grow: 1;
-    height: 100%;
-    @include flexCol(center, space-between, 20px);
-    padding: 10px 20px;
+  flex-grow: 1;
+  height: 100%;
+  @include flexCol(center, space-between, 20px);
+  padding: 10px 20px;
 
-    .input-container {
-        width: 100%;
-        border-radius: 10px;
-        padding: 10px;
-        @include flexRow(center, flex-start);
+  .input-container {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    @include flexRow(center, flex-start);
 
-        .input-message {
-            flex: 1 1 auto;
-            border-radius: 5px;
-            padding: 10px;
-            resize: none;
-        }
-
-        .send-button {
-            width: max-content;
-        }
+    .input-message {
+      flex: 1 1 auto;
+      border-radius: 5px;
+      padding: 10px;
+      resize: none;
     }
+
+    .send-button {
+      width: max-content;
+      background-color: var(--violet-600);
+      color: var(--violet-100);
+    }
+  }
 }
