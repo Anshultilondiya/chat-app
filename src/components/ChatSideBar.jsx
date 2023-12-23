@@ -50,8 +50,10 @@ export const ChatSideBar = () => {
     const handleClose = () => setOpen(false);
 
 
-    useEffect(() => {
-        createNewChat('New Chat Auto');
+  useEffect(() => {
+    if (msgList.length === 0) {
+      createNewChat('New Chat Auto');
+    }
     },[])
 
 

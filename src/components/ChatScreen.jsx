@@ -11,7 +11,7 @@ export default function BasicModal(props) {
   const [value, setValue] = useState('');
   const [rating, setRating] = useState(0);
     const addChat = () => {
-        props.createNewChat(value);
+        props.addFeedback(value, rating);
         setValue('');
         props.handleClose();
     }
@@ -49,7 +49,7 @@ export default function BasicModal(props) {
 }
 
 export const ChatScreen = () => {
-    const { addMessage, getBotResponse } = useContext(ChatContext);
+    const { addMessage, addFeedback } = useContext(ChatContext);
     const [value, setValue] = useState('');
      const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -67,9 +67,7 @@ export const ChatScreen = () => {
         handleOpen();
     }
 
-    const addFeedback = (value, rating) => {
-        
-    }
+    
 
   return (
       <Box className='chat-screen'>

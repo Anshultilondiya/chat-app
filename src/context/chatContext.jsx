@@ -124,7 +124,8 @@ const ContextProvider = ({ children }) => {
     setActiveChatId, 
     getBotResponse,
     botIsTyping,
-    likeDislikeMessage
+    likeDislikeMessage, 
+    addFeedback
   }
 
   return (
