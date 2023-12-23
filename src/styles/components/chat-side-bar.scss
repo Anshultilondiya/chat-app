@@ -1,0 +1,36 @@
+.chat-side-bar {
+    padding: 10px 20px;
+    border-right: 1px solid var(--gray-200);
+    height: 100%;
+
+    .new-chat {
+        width: 100%;
+        @include flexRow(center, space-between);
+        cursor: pointer;
+        height: 50px;
+    }
+
+    .heading {
+        @include variableFont(14px, 600, 20px);
+    }
+
+    .chat-list {
+        width: 100%;
+        padding-top: 10px;
+        height: calc(100vh - 170px);
+        overflow-y: auto;
+
+        li {
+            background-color: var(--gray-200);
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+            padding: 10px;
+            border-radius: 2px;
+            @include flexRow(center, flex-start);
+            margin-bottom: 10px;
+
+            &.active {
+                background-color: var(--blue-primary-100);
+            }
+        }
+    }
+}
