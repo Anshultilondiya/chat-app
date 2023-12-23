@@ -1,14 +1,12 @@
-import { nanoid } from 'nanoid';
-import React, { createContext, useEffect, useState } from 'react';
-import { getResponse } from '../api/ai.service';
+import { nanoid } from "nanoid";
+import React, { createContext, useEffect, useState } from "react";
+import { getResponse } from "../api/ai.service";
 
 // Step 1: Create a context
 const ChatContext = createContext();
 
-
 // Step 2: Create a provider component
 const ContextProvider = ({ children }) => {
-  
   const [msgList, setMsgList] = useState([]);
 
   const [activeChat, setActiveChat] = useState(null);
@@ -18,31 +16,32 @@ const ContextProvider = ({ children }) => {
   const createNewChat = (name) => {
     const newChat = {
       id: nanoid(),
-      name: name.trim().length ? name : 'New Chat',
+      name: name.trim().length ? name : "New Chat",
       messages: [],
       feedback: null,
-      rating: null
-    }
+      rating: null,
+      isConversationEnded: false,
+    };
     setMsgList([...msgList, newChat]);
     setActiveChatId(newChat.id);
     setActiveChat(newChat);
-  }
+  };
 
   // remove a chat
   const removeChat = (id) => {
     setMsgList(msgList.filter((chat) => chat.id !== id));
-  }
+  };
 
-  const addMessage = (message, role='user') => {
+  const addMessage = (message, role = "user") => {
     const msgObj = {
       id: nanoid(),
       message,
       role,
       isLiked: 0, // 1 - dislike, 2 - like, 0 - neutral
-    }
+    };
     setMsgList(
       msgList.map((chat) => {
-        console.log(chat.id === activeChatId)
+        console.log(chat.id === activeChatId);
         if (chat.id === activeChatId) {
           return {
             ...chat,
@@ -52,9 +51,7 @@ const ContextProvider = ({ children }) => {
         return chat;
       })
     );
-  }
-
-
+  };
 
   const likeDislikeMessage = (id, status) => {
     setMsgList(
@@ -66,7 +63,7 @@ const ContextProvider = ({ children }) => {
               if (msg.id === id) {
                 return {
                   ...msg,
-                  isLiked : status,
+                  isLiked: status,
                 };
               }
               return msg;
@@ -76,17 +73,19 @@ const ContextProvider = ({ children }) => {
         return chat;
       })
     );
-  }
+  };
 
   const getBotResponse = async () => {
     setBotIsTyping(true);
-   getResponse().then((response) => {
-     addMessage(response, 'bot');
-   }).finally(() => {
-     setBotIsTyping(false);
-   })
-  }
-  
+    getResponse()
+      .then((response) => {
+        addMessage(response, "bot");
+      })
+      .finally(() => {
+        setBotIsTyping(false);
+      });
+  };
+
   const addFeedback = (value, rating) => {
     setMsgList(
       msgList.map((chat) => {
@@ -94,13 +93,14 @@ const ContextProvider = ({ children }) => {
           return {
             ...chat,
             feedback: value,
-            rating
+            rating,
+            isConversationEnded: true,
           };
         }
         return chat;
       })
     );
-  }
+  };
 
   useEffect(() => {
     if (activeChatId) {
@@ -108,9 +108,7 @@ const ContextProvider = ({ children }) => {
     }
   }, [activeChatId, msgList]);
 
-
-  console.log({activeChat})
-  
+  console.log({ activeChat });
 
   const contextValue = {
     msgList,
@@ -121,19 +119,16 @@ const ContextProvider = ({ children }) => {
     activeChat,
     setActiveChat,
     activeChatId,
-    setActiveChatId, 
+    setActiveChatId,
     getBotResponse,
     botIsTyping,
-    likeDislikeMessage, 
-    addFeedback
-  }
+    likeDislikeMessage,
+    addFeedback,
+  };
 
   return (
-    <ChatContext.Provider value={contextValue}>
-      {children}
-    </ChatContext.Provider>
+    <ChatContext.Provider value={contextValue}>{children}</ChatContext.Provider>
   );
 };
-
 
 export { ContextProvider, ChatContext };
