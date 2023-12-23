@@ -3,12 +3,17 @@
   height: 100%;
   @include flexCol(center, space-between, 20px);
   padding: 10px 20px;
+  position: relative;
 
   .input-container {
-    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    width: 70%;
     border-radius: 10px;
     padding: 10px;
     @include flexRow(center, flex-start);
+    background-color: var(--violet-100);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 
     .input-message {
       flex: 1 1 auto;
@@ -22,5 +27,33 @@
       background-color: var(--violet-600);
       color: var(--violet-100);
     }
+  }
+
+  .end-conversation-card {
+    width: 80%;
+    background-color: var(--violet-600);
+    color: var(--violet-100);
+    padding: 10px;
+    border-radius: 5px;
+    @include flexCol(flex-start, flex-start, 20px);
+
+    .feedback {
+      width: 100%;
+    }
+
+    .rating {
+      @include flexRow(center, flex-start);
+
+      svg {
+        color: var(--yellow-400);
+      }
+    }
+
+    h5 {
+      letter-spacing: 1px;
+      font-weight: 600;
+      font-size: 20px;
+    }
+
   }
 }

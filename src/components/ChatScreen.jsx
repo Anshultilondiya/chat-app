@@ -86,11 +86,20 @@ export const ChatScreen = () => {
       />
       <Messages />
       {activeChat?.isConversationEnded ? (
-        <Box>
-          {" "}
-          <p>{activeChat.feedback}</p>
-          <p>{activeChat.rating}</p>
-          <p>Conversation Ended</p>
+        <Box className="end-conversation-card">
+          <p className="feedback"> <span>Feedback:</span>
+            {activeChat.feedback}</p>
+          <p className="rating">
+            <span>Rating:</span>
+           {activeChat.rating !== null ? [1, 2, 3, 4, 5].map((item) => {
+            if (item <= activeChat.rating) {
+              return <FaStar key={item} />;
+            }
+              else if (activeChat.rating !== null) return <FaRegStar key={item} />;
+              else return null;
+           }) : "not rated"}
+            </p>
+          <h5>Conversation Ended</h5>
         </Box>
       ) : (
         <Box className="input-container">
