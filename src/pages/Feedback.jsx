@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../context/chatContext";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 export const Feedback = () => {
   const { msgList } = useContext(ChatContext); // getting all chats from context
@@ -12,16 +13,25 @@ export const Feedback = () => {
   }, [msgList]);
 
   return (
-    <Box>
+    <Box className="feedback">
       <h1>Feedback</h1>
       <ul>
+         <li>
+            <p>Name</p>
+            <p>Rating</p>
+            <p>Feedback</p>
+          </li>
         {sortedMsgList.map((msg) => (
           <li key={msg.id}>
-            {" "}
             {/* mapping through sorted chats */}
-            <p>Name: {msg.name}</p>
-            <p>Rating: {msg.rating}</p>
-            <p>Feedback: {msg.feedback}</p>
+            <p> {msg.name}</p>
+            <p>{[1, 2, 3, 4, 5].map((item) => {
+            if (item <= msg.rating) {
+              return <FaStar key={item} />;
+            }
+            return <FaRegStar key={item} />;
+          })}</p>
+            <p>{msg.feedback}</p>
           </li>
         ))}
       </ul>
