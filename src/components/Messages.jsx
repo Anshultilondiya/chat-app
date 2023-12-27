@@ -11,7 +11,7 @@ import {
 export const Messages = () => {
   const { activeChat, getBotResponse, botIsTyping, likeDislikeMessage } =
     useContext(ChatContext);
-
+  // checks if messages is of user or bot, if the message is of user, then get bot response
   useEffect(() => {
     if (activeChat?.messages.length) {
       console.log(activeChat.messages[activeChat.messages.length - 1]);

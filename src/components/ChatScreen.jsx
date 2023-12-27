@@ -4,7 +4,6 @@ import { Messages } from "./Messages";
 import { Button, ModalClose, Sheet } from "@mui/joy";
 import { ChatContext } from "../context/chatContext";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import { yellow } from "@mui/material/colors";
 
 export default function BasicModal(props) {
   const [value, setValue] = useState("");
